@@ -77,6 +77,11 @@ export const Content = styled.div`
   )}
 `;
 
+export const Logout = styled.div`
+  margin-right: "10px";
+  cursor: pointer;
+`;
+
 export const Footer = styled.div`
   border: solid 1px var(--color-light-gray);
   z-index: 3;

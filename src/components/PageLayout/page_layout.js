@@ -1,7 +1,18 @@
-import React from "react";
-import { Content, Footer, Header, Layout, MenuPanel, MenuItem } from "./styles";
+import React, { useContext } from "react";
+import {
+  Content,
+  Footer,
+  Header,
+  Layout,
+  MenuPanel,
+  MenuItem,
+  Logout,
+} from "./styles";
 import Logo from "../Logo/logo";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { UserContext } from "../../context/Auth";
+import { logout } from "../../store/thunks/user";
 
 const PageLayout = ({
   children,
@@ -13,6 +24,13 @@ const PageLayout = ({
   RandomSource,
 }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useContext(UserContext);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <Layout noScroll={noScroll}>
       <Header>
@@ -27,7 +45,22 @@ const PageLayout = ({
             </MenuItem>
           </MenuPanel>
         )}
-        <div> profile</div>
+        {user?.user?.username ? (
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ marginRight: "20px" }}>
+              Hello, {user?.user?.username}
+            </div>
+            <Logout onClick={handleLogout}> Logout</Logout>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </Header>
       <Content center={center}>{children}</Content>
       <Footer>Footer</Footer>

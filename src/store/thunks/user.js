@@ -54,3 +54,18 @@ export const getUser = () => {
       });
   };
 };
+
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    api
+      .get("/logout")
+      .then((response) => {
+        console.log(response);
+        window.location = "/login";
+      })
+      .catch((error) => {
+        dispatch(setUserFailure(error.toString()));
+      });
+  };
+};

@@ -1,17 +1,11 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../store/thunks/user";
 
-// export const AuthContext = createContext();
-
-// export function useAuth() {
-//   return useContext(AuthContext);
-// }
-export const UserContext = createContext({ name: "", auth: false });
+export const UserContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState({});
   const { data } = useSelector((state) => state.user);
 
   useEffect(
@@ -22,12 +16,8 @@ const AuthProvider = ({ children }) => {
     []
   );
 
-  const setCurrentUser = () => {
-    setUser(data);
-  };
-
   return (
-    <UserContext.Provider value={{ user, setUser: setCurrentUser }}>
+    <UserContext.Provider value={{ user: data }}>
       {children}
     </UserContext.Provider>
   );
