@@ -11,12 +11,9 @@ const GlobalStyle = createGlobalStyle`
         height: 100vh;
         text-align: center;
 
-        /* Brand Colors */
         --color-sky: #4abfe2;
-
-        /* System Colors */
         --color-red: #d0021b;
-
+        --color-pink: #DB537B;
 
         /* Neutral Colors */
         --color-white: #fff;
@@ -47,6 +44,9 @@ const GlobalStyle = createGlobalStyle`
 
     /* p tag reset */
     p {
+        margin: 0;
+    }
+    h1,h2,h3,h4,h5 {
         margin: 0;
     }
 

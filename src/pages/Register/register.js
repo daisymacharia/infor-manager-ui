@@ -1,29 +1,37 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Formik } from "formik";
-import AuthSchema from "./formSchema";
+import AuthSchema from "../Login/formSchema";
 import { PageLayout, Input, Button } from "../../components";
-import { LoginPage, ButtonsSection } from "./styles";
-import { loginUser } from "../../store/thunks/user";
+import { LoginPage, ButtonsSection } from "../Login/styles";
+import { registerUser } from "../../store/thunks/user";
 
-function Login() {
+function Register() {
   const dispatch = useDispatch();
 
   const handleSubmit = (data) => {
-    dispatch(loginUser(data));
+    dispatch(registerUser(data));
   };
 
   return (
     <PageLayout>
       <LoginPage>
-        <h1>Welcome Back</h1>
+        <h1>Create New Account</h1>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ username: "", email: "", password: "" }}
           validationSchema={AuthSchema}
           validateOnChange={false}
         >
           {({ touched, values, errors }) => (
             <>
+              <Input
+                placeholder="Enter username"
+                name="username"
+                value={values.username}
+                error={errors.username}
+                validate={AuthSchema.username}
+                label="Username"
+              />
               <Input
                 placeholder="Enter email"
                 name="email"
@@ -58,4 +66,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

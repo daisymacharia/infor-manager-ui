@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import "./index.css";
-import routes from "./App";
+import Routes from "./App";
 import * as serviceWorker from "./serviceWorker";
 import GlobalStyle from "./styles";
 import store from "./store";
@@ -11,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <GlobalStyle />
-      {routes}
+      <Routes />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -1,13 +1,21 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./pages/Login";
+import { Dashboard, Login, Register } from "./pages";
+import AuthProvider from "./context/Auth";
+import { PrivateRoute } from "./components";
 
-import "./App.css";
+const Routes = () => {
+  return (
+    <AuthProvider>
+      <Router>
+        {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
 
-const Routes = (
-  <Router>
-    <Route exact path="/login" component={Login} />
-  </Router>
-);
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      </Router>
+    </AuthProvider>
+  );
+};
 
 export default Routes;

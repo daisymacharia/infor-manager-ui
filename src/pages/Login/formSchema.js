@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
-const loginSchema = yup.object({
+const AuthSchema = yup.object({
+  username: yup.string().required("please enter a username"),
   email: yup
     .string()
     .email("Invalid email format")
@@ -8,4 +9,4 @@ const loginSchema = yup.object({
   password: yup.string().required("Please enter a password for your account"),
 });
 
-export default loginSchema;
+export default AuthSchema;
