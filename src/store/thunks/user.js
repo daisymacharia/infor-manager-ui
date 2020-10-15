@@ -15,7 +15,6 @@ export const loginUser = (data) => {
     api
       .post("/login", data)
       .then((response) => {
-        dispatch(setUser(response.data));
         window.location = "/dashboard";
       })
       .catch((error) => {
@@ -30,7 +29,6 @@ export const registerUser = (data) => {
     api
       .post("/register", data)
       .then((response) => {
-        dispatch(setUser(response.data));
         window.location = "/dashboard";
       })
       .catch((error) => {
@@ -45,6 +43,7 @@ export const getUser = () => {
     api
       .get("/user")
       .then((response) => {
+        console.log(response, "res");
         dispatch(setUser(response.data));
       })
       .catch((error) => {

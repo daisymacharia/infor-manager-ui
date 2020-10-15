@@ -19,7 +19,7 @@ const addUser = createSlice({
     },
     setUserFailure(state, action) {
       state.loading = false;
-      state.data = action.payload;
+      state.error = action.payload;
     },
   },
 });
