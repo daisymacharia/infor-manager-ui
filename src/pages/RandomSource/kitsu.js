@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button } from "../../components";
+import { Card } from "../../components";
 import { CategoriesWrapper } from "./styles";
 
 const KItsuCategories = ({ categories }) => {

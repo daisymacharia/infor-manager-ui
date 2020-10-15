@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { ifProp } from "styled-tools";
+import styled from "styled-components";
+// import { ifProp } from "styled-tools";
 
 export const CategoriesWrapper = styled.div`
   display: flex;
