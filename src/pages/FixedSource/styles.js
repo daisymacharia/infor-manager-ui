@@ -8,6 +8,11 @@ export const JokesWrapper = styled.div`
   grid-gap: 1rem;
   margin: 30px;
   padding: 1rem;
+
+  @media (max-width: 425px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(10, 10rem);
+  }
 `;
 
 export const JokeSetup = styled.div`

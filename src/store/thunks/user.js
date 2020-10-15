@@ -3,7 +3,7 @@ import { startLoading, setUser, setUserFailure } from "../reducer/user";
 
 export const getApi = () =>
   axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: process.env.REACT_APP_BASE_URL,
     withCredentials: true,
   });
 
@@ -15,7 +15,6 @@ export const loginUser = (data) => {
     api
       .post("/login", data)
       .then((response) => {
-        console.log(response);
         dispatch(setUser(response.data));
         window.location = "/dashboard";
       })
@@ -46,7 +45,6 @@ export const getUser = () => {
     api
       .get("/user")
       .then((response) => {
-        console.log(response);
         dispatch(setUser(response.data));
       })
       .catch((error) => {
@@ -61,7 +59,6 @@ export const logout = () => {
     api
       .get("/logout")
       .then((response) => {
-        console.log(response);
         window.location = "/login";
       })
       .catch((error) => {

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getJokes } from "../../store/thunks/jokes";
-import { Card, PageLayout, Button } from "../../components";
-import { JokesWrapper, JokeSetup, JokePunchline } from "./styles";
+import { getAnimeCategories } from "../../store/thunks/kitsu/categories";
+import { PageLayout } from "../../components";
+import Jokes from "../FixedSource/jokes";
+import RandomSource from "../RandomSource/kitsu";
 
 const Dashboard = () => {
   const [punchLine, showPunchline] = useState(false);
@@ -15,6 +17,10 @@ const Dashboard = () => {
     data: { status, jokes },
   } = useSelector((state) => state.jokes);
 
+  const {
+    data: { categories },
+  } = useSelector((state) => state.categories);
+
   useEffect(
     () => {
       dispatch(getJokes());
@@ -22,6 +28,15 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+
+  useEffect(
+    () => {
+      dispatch(getAnimeCategories());
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   const handleShowPunchLine = (id) => {
     showPunchline(!punchLine);
     showPuchlineId(id);
@@ -46,29 +61,16 @@ const Dashboard = () => {
     >
       {status === "FETCHING" && <div>loading</div>}
       {fixedSource && status === "COMPLETED" && (
-        <JokesWrapper>
-          {jokes?.length > 0 &&
-            jokes.map((joke) => (
-              <Card key={joke.id}>
-                <JokeSetup> {joke.setup}</JokeSetup>
-                {punchLine && (
-                  <JokePunchline show={punchId === joke.id}>
-                    {joke.punchline}
-                  </JokePunchline>
-                )}
-                <Button
-                  text={
-                    punchLine && punchId === joke.id
-                      ? "Hide Punchline"
-                      : "Reveal PunchLine"
-                  }
-                  onClick={() => handleShowPunchLine(joke.id)}
-                />
-              </Card>
-            ))}
-        </JokesWrapper>
+        <Jokes
+          handleShowPunchLine={handleShowPunchLine}
+          punchId={punchId}
+          punchLine={punchLine}
+          jokes={jokes}
+        />
       )}
-      {randomSource && <div>random</div>}
+      {randomSource && status === "COMPLETED" && (
+        <RandomSource categories={categories} />
+      )}
     </PageLayout>
   );
 };

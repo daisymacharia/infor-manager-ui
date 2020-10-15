@@ -49,6 +49,11 @@ const GlobalStyle = createGlobalStyle`
     h1,h2,h3,h4,h5 {
         margin: 0;
     }
+    @media (max-width: 768px) {
+        * {
+        font-size: 10px;
+    }
+    }
 
 `;
 

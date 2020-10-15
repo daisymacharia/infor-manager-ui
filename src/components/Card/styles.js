@@ -11,6 +11,7 @@ export const CardWrapper = styled.div`
   /* background-color: var(--color-pink); */
 
   @media (max-width: 768px) {
-    font-size: 12px;
+    font-size: 10px;
+    padding: 1rem;
   }
 `;
