@@ -17,17 +17,7 @@ export const Layout = styled.div`
 
 export const MenuPanel = styled.div`
   display: flex;
-  /* width: 10rem; */
-  /* margin-top: 5rem; */
-  /* border: solid 1px var(--color-light-gray);
-  border-top: none; */
-  /* position: fixed; */
-  /* left: 0; */
   height: 100%;
-  /* top: 0; */
-  /* z-index: 2; */
-  /* background-color: white; */
-  /* padding-top: 2rem; */
 `;
 
 export const MenuItem = styled.div`

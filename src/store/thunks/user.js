@@ -35,6 +35,7 @@ export const registerUser = (data) => {
     api
       .post("/register", data)
       .then((response) => {
+        dispatch(setUser(response.data));
         window.location = "/dashboard";
       })
       .catch((error) => {

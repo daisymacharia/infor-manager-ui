@@ -61,7 +61,7 @@ const PageLayout = ({
         )}
       </Header>
       <Content center={center}>{children}</Content>
-      <Footer>&copy; Daisy Macharia</Footer>
+      {user.username && <Footer>&copy; Daisy Macharia</Footer>}
     </Layout>
   );
 };

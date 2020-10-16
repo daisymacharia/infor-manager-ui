@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import AuthSchema from "./formSchema";
 import { PageLayout, Input, Button } from "../../components";
@@ -8,6 +8,7 @@ import { loginUser } from "../../store/thunks/user";
 
 function Login() {
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user);
 
   const handleSubmit = (data) => {
     dispatch(loginUser(data));
@@ -46,7 +47,8 @@ function Login() {
               <ButtonsSection>
                 <Button
                   type="submit"
-                  text="Submit"
+                  text={loading ? "Loading..." : "Login"}
+                  width="150px"
                   onClick={() => handleSubmit(values)}
                 />
               </ButtonsSection>
