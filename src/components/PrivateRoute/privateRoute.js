@@ -1,20 +1,25 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { UserContext } from "../../context/Auth";
+import { useSelector } from "react-redux";
+import LoadInitialData from "../LoadInitialData/LoadInitialData";
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const user = useContext(UserContext);
-  console.log(user);
+  const { data, error } = useSelector((state) => state.user);
+
   return (
     <Route
       {...rest}
-      render={(props) =>
-        user?.user?.username ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
+      render={(props) => {
+        if (error) {
+          return <Redirect to="/login" />;
+        } else {
+          if (data.username) {
+            return <Component {...props} />;
+          } else {
+            return <LoadInitialData />;
+          }
+        }
+      }}
     />
   );
 }

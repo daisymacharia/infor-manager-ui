@@ -83,7 +83,11 @@ export const Logout = styled.div`
 `;
 
 export const Footer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: solid 1px var(--color-light-gray);
   z-index: 3;
-  background-color: var(--color-white);
+  background-color: var(--color-sky);
+  color: var(--color-altblack);
 `;

@@ -5,9 +5,6 @@ import Routes from "./App";
 import * as serviceWorker from "./serviceWorker";
 import GlobalStyle from "./styles";
 import store from "./store";
-import LogRocket from "logrocket";
-
-LogRocket.init("wx0efx/infor-manager");
 
 ReactDOM.render(
   <React.StrictMode>
