@@ -15,7 +15,6 @@ export const getApi = () =>
   });
 
 const api = getApi();
-console.log(api.defaults.headers);
 export const loginUser = (data) => {
   return (dispatch) => {
     dispatch(startLoading());
@@ -50,7 +49,6 @@ export const getUser = () => {
     api
       .get("/user")
       .then((response) => {
-        console.log(response, "res");
         dispatch(setUser(response.data));
       })
       .catch((error) => {
@@ -63,7 +61,7 @@ export const logout = () => {
   return (dispatch) => {
     dispatch(startLoading());
     api
-      .get("/logout")
+      .post("/logout")
       .then((response) => {
         window.location = "/login";
       })
