@@ -6,7 +6,7 @@ export const UserContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.user);
+  const { data, loading } = useSelector((state) => state.user);
 
   useEffect(
     () => {
@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
   );
 
   return (
-    <UserContext.Provider value={{ user: data }}>
+    <UserContext.Provider value={{ ...data, loading }}>
       {children}
     </UserContext.Provider>
   );

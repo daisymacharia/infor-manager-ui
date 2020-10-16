@@ -7,12 +7,12 @@ export const getJokes = () => {
     dispatch(setFetchStatus(apiStatus.fetching));
     axios
       .get("https://official-joke-api.appspot.com/jokes/ten")
-      .then((reponse) => {
+      .then((response) => {
         dispatch(setFetchStatus(apiStatus.completed));
-        dispatch(setJokes(reponse.data));
+        dispatch(setJokes(response.data));
       })
       .catch((error) => {
-        dispatch(setFetchStatus(apiStatus.fetching));
+        dispatch(setFetchStatus(apiStatus.error));
       });
   };
 };

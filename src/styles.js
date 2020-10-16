@@ -14,11 +14,13 @@ const GlobalStyle = createGlobalStyle`
         --color-sky: #4abfe2;
         --color-red: #d0021b;
         --color-pink: #DB537B;
+        --color-altdark: #1e2833;
 
         /* Neutral Colors */
         --color-white: #fff;
         --color-black: #000;
         --color-altblack: #111;
+
         --color-gray: #666;
         --color-light-gray: #ccc;
 
