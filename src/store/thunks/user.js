@@ -1,14 +1,21 @@
 import axios from "axios";
 import { startLoading, setUser, setUserFailure } from "../reducer/user";
 
+export const getHeaders = () => ({
+  Accept: "application/json",
+  "Content-Type": "application/json",
+  "X-Requested-With": "XMLHttpRequest",
+});
+
 export const getApi = () =>
   axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
     withCredentials: true,
+    headers: getHeaders(),
   });
 
 const api = getApi();
-
+console.log(api.defaults.headers);
 export const loginUser = (data) => {
   return (dispatch) => {
     dispatch(startLoading());
