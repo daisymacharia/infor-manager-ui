@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setFetchStatus, setUser, setUserFailure } from "../reducer/user";
+import { setFetchStatus, setUser } from "../reducer/user";
 import { apiStatus } from "../../utils/apiStatus";
 
 export const getHeaders = () => ({
@@ -27,7 +27,6 @@ export const loginUser = (data) => {
       })
       .catch((error) => {
         dispatch(setFetchStatus(apiStatus.error));
-        dispatch(setUserFailure(error.toString()));
       });
   };
 };
@@ -43,7 +42,6 @@ export const registerUser = (data) => {
         window.location = "/dashboard";
       })
       .catch((error) => {
-        console.log(error);
         dispatch(setFetchStatus(apiStatus.error));
       });
   };
@@ -55,8 +53,8 @@ export const getUser = () => {
     api
       .get("api/user")
       .then((response) => {
-        dispatch(setFetchStatus(apiStatus.completed));
         dispatch(setUser(response.data));
+        dispatch(setFetchStatus(apiStatus.completed));
       })
       .catch((error) => {
         dispatch(setFetchStatus(apiStatus.completed));
@@ -75,7 +73,6 @@ export const logout = () => {
       })
       .catch((error) => {
         dispatch(setFetchStatus(apiStatus.error));
-        dispatch(setUserFailure(error.toString()));
       });
   };
 };

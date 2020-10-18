@@ -45,7 +45,7 @@ const PageLayout = ({
             </MenuItem>
           </MenuPanel>
         )}
-        {user.username ? (
+        {user?.username ? (
           <div
             style={{
               display: "flex",
@@ -53,7 +53,7 @@ const PageLayout = ({
               alignItems: "center",
             }}
           >
-            <div style={{ marginRight: "20px" }}>Hello, {user.username}</div>
+            <div style={{ marginRight: "20px" }}>Hello, {user?.username}</div>
             <Logout onClick={handleLogout}> Logout</Logout>
           </div>
         ) : (
@@ -61,7 +61,7 @@ const PageLayout = ({
         )}
       </Header>
       <Content center={center}>{children}</Content>
-      {user.username && <Footer>&copy; Daisy Macharia</Footer>}
+      {user?.username && <Footer>&copy; Daisy Macharia</Footer>}
     </Layout>
   );
 };

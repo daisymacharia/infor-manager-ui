@@ -18,14 +18,16 @@ const addUser = createSlice({
       };
     },
     setUser(state, action) {
-      state.data = action.payload;
-      state.error = null;
-    },
-    setUserFailure(state, action) {
-      state.error = action.payload;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          user: action.payload,
+        },
+      };
     },
   },
 });
 
-export const { setFetchStatus, setUser, setUserFailure } = addUser.actions;
+export const { setFetchStatus, setUser } = addUser.actions;
 export default addUser.reducer;

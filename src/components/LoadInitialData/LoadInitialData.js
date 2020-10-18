@@ -18,7 +18,9 @@ const Container = styled.div`
 const LoadInitialData = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.user);
+  const {
+    data: { status, user },
+  } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getUser());
@@ -26,17 +28,15 @@ const LoadInitialData = () => {
   }, []);
 
   useEffect(() => {
-    if (data) {
+    if (user) {
       history.push(history.location.pathname + history.location.search);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [user]);
 
   return (
     <Container>
-      <Loader loading={data} />
-
-      {/* <h5>Data is Loading...</h5> */}
+      <Loader loading={status === "FETCHING"} />
     </Container>
   );
 };
