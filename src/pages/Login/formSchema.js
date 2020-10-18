@@ -6,7 +6,7 @@ const AuthSchema = yup.object({
     .string()
     .email("Invalid email format")
     .required("Please enter your email address"),
-  password: yup.string().required("Please enter a password for your account"),
+  password: yup.string().required("Please enter a password"),
 });
 
 export default AuthSchema;

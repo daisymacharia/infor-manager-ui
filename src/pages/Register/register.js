@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Formik } from "formik";
 import AuthSchema from "../Login/formSchema";
 import { PageLayout, Input, Button } from "../../components";
@@ -8,14 +10,47 @@ import { registerUser } from "../../store/thunks/user";
 
 function Register() {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
+  const {
+    data: { status },
+  } = useSelector((state) => state.user);
+
+  useEffect(
+    () => {
+      if (status === "ERROR") {
+        toast.error("Username / email already taken", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [status]
+  );
 
   const handleSubmit = (data) => {
     dispatch(registerUser(data));
   };
+  // Error: Request failed with status code 400
 
   return (
     <PageLayout>
+      {status === "ERROR" && (
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      )}
       <LoginPage>
         <h1>Create New Account</h1>
         <Formik
@@ -55,7 +90,7 @@ function Register() {
               <ButtonsSection>
                 <Button
                   type="submit"
-                  text={loading ? "Loading..." : "Register"}
+                  text={status === "FETCHING" ? "Loading..." : "Register"}
                   width="150px"
                   onClick={() => handleSubmit(values)}
                 />

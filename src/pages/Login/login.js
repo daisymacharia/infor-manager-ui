@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import AuthSchema from "./formSchema";
@@ -8,7 +10,26 @@ import { loginUser } from "../../store/thunks/user";
 
 function Login() {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
+  const {
+    data: { status },
+  } = useSelector((state) => state.user);
+
+  useEffect(
+    () => {
+      if (status === "ERROR") {
+        toast.error("User does not exist", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [status]
+  );
 
   const handleSubmit = (data) => {
     dispatch(loginUser(data));
@@ -16,6 +37,7 @@ function Login() {
 
   return (
     <PageLayout>
+      {status === "ERROR" && <ToastContainer />}
       <LoginPage>
         <h1>Welcome Back</h1>
         <Formik
@@ -47,7 +69,7 @@ function Login() {
               <ButtonsSection>
                 <Button
                   type="submit"
-                  text={loading ? "Loading..." : "Login"}
+                  text={status === "FETCHING" ? "Loading..." : "Login"}
                   width="150px"
                   onClick={() => handleSubmit(values)}
                 />

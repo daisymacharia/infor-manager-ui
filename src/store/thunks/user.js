@@ -1,5 +1,6 @@
 import axios from "axios";
-import { startLoading, setUser, setUserFailure } from "../reducer/user";
+import { setFetchStatus, setUser, setUserFailure } from "../reducer/user";
+import { apiStatus } from "../../utils/apiStatus";
 
 export const getHeaders = () => ({
   Accept: "application/json",
@@ -17,13 +18,15 @@ export const getApi = () =>
 const api = getApi();
 export const loginUser = (data) => {
   return (dispatch) => {
-    dispatch(startLoading());
+    dispatch(setFetchStatus(apiStatus.fetching));
     api
-      .post("/login", data)
+      .post("api/login", data)
       .then((response) => {
+        dispatch(setFetchStatus(apiStatus.completed));
         window.location = "/dashboard";
       })
       .catch((error) => {
+        dispatch(setFetchStatus(apiStatus.error));
         dispatch(setUserFailure(error.toString()));
       });
   };
@@ -31,42 +34,47 @@ export const loginUser = (data) => {
 
 export const registerUser = (data) => {
   return (dispatch) => {
-    dispatch(startLoading());
+    dispatch(setFetchStatus(apiStatus.fetching));
     api
-      .post("/register", data)
+      .post("api/register", data)
       .then((response) => {
+        dispatch(setFetchStatus(apiStatus.completed));
         dispatch(setUser(response.data));
         window.location = "/dashboard";
       })
       .catch((error) => {
-        dispatch(setUserFailure(error.toString()));
+        console.log(error);
+        dispatch(setFetchStatus(apiStatus.error));
       });
   };
 };
 
 export const getUser = () => {
   return (dispatch) => {
-    dispatch(startLoading());
+    dispatch(setFetchStatus(apiStatus.fetching));
     api
-      .get("/user")
+      .get("api/user")
       .then((response) => {
+        dispatch(setFetchStatus(apiStatus.completed));
         dispatch(setUser(response.data));
       })
       .catch((error) => {
-        dispatch(setUserFailure(error.toString()));
+        dispatch(setFetchStatus(apiStatus.completed));
       });
   };
 };
 
 export const logout = () => {
   return (dispatch) => {
-    dispatch(startLoading());
+    dispatch(setFetchStatus(apiStatus.fetching));
     api
-      .post("/logout")
+      .post("api/logout")
       .then((response) => {
+        dispatch(setFetchStatus(apiStatus.completed));
         window.location = "/login";
       })
       .catch((error) => {
+        dispatch(setFetchStatus(apiStatus.error));
         dispatch(setUserFailure(error.toString()));
       });
   };
